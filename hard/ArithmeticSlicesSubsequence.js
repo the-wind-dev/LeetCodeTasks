@@ -7,25 +7,23 @@
 Input: nums = [2,4,6,8,10]
 Output: 7
 */
-const NUMS = [2,4];
+const NUMS = [2,4,6,8,10];
 
 class Arithmetic {
     constructor() {
         this.len = 0;
         this.result = 0;
+        this.subsequences = [];
     }
 
     dfs(depth, numsArray, currentSub) {
-        console.log("len:",this.len);
-        console.log("depth:", depth);
-        console.log("numsArray:",numsArray);
-        console.log("currentSub:",currentSub);
         if (depth === this.len) {
             if (currentSub.length < 3) return;
             for (let i = 1; i < currentSub.length; i++) {
                 if (currentSub[i] - currentSub[i - 1] !== currentSub[1] - currentSub[0]) return;
             }
             this.result++;
+            this.subsequences.push([...currentSub]);
             return;
         }
         this.dfs(depth + 1, numsArray, currentSub);
@@ -45,4 +43,4 @@ class Arithmetic {
 const arithmetic = new Arithmetic();
 
 arithmetic.numberOfArithmeticSlices(NUMS);
-console.log(arithmetic.result);
+console.log(arithmetic.result, arithmetic.subsequences);
